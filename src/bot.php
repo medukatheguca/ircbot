@@ -393,7 +393,6 @@ foreach ($fish as $f) {
 
 if (!file_exists(__DIR__ . "/../docs")) {
 	mkdir(__DIR__ . "/../docs", 0755);
-	echo "\n\n\n\nMADE\n\n\n\n";
 }
 
 while ( is_resource($socket)) {
@@ -637,9 +636,9 @@ while ( is_resource($socket)) {
 			fwrite($fp, "$name 1\n");
 		} else {
 			$found = false;
-			
+
 			foreach ($lines as &$line) {
-				echo "\n\n\nLINE BEFORE: \"" . $line . "\"\n";
+
 				$words = explode(' ', $line);
 				if ($words[0] == "total") {
 					$words[1] = intval($words[1]) + 1;
