@@ -652,7 +652,7 @@ while ( is_resource($socket)) {
 		var_dump($lines);
 
 		socket_write($socket, "PRIVMSG " . $sendto . " :" . $name . " took a shower and is no longer stinky!\r\n");
-		socket_write($socket, "PRIVMSG " . $sendto . " :" . $name  . " has taken " . $usr_num . " showers. Total number of showers taken: ". $total . "\r\n");
+		socket_write($socket, "PRIVMSG " . $sendto . " :" . $name  . " has taken " . $usr_num . " " . ($usr_num == 1 ? "shower" : "showers") . ". Total number of showers taken: ". $total . "\r\n");
 	}
 }
 
