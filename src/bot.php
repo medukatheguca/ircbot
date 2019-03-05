@@ -372,6 +372,8 @@ $fish.array_push($fish, new fish(["\x0303><>\x03\x0304~\x03"], ["snek fish"], 10
 $fish.array_push($fish, new fish(["ᛟ"], ["runic fish"], 10, true));
 $fish.array_push($fish, new fish(["ᗙᗉᗇ"], ["canadian fish"], 10, true));
 $fish.array_push($fish, new fish(["\x02\x0308><>\x03\x02"], ["gold fish"], 10, true));
+$fish.array_push($fish, new fish(["><>📖"], ["smart fish"], 10, true));
+$fish.array_push($fish, new fish(["🐦"], ["flying fish"], 10, true));
 $fish.array_push($fish, new fish(["\x0311>9>\x03"], ["dumb fish"], 9, true));
 $fish.array_push($fish, new fish(["><\x0307|\x03        \x02PORTAL FISH\x02        \x0312|\x03>"], [""], 5, false));
 $fish.array_push($fish, new fish([" \/\\", " /\/"], ["yo mama", "fish"], 5, false));
@@ -379,12 +381,14 @@ $fish.array_push($fish, new fish([" /\\", " \/", " /\\"], ["longfish", "is", "lo
 $fish.array_push($fish, new fish(["(((><>)))"], ["who's behind this fish"], 5, true));
 $fish.array_push($fish, new fish(["me with tags fish"], [""], 5, false));
 $fish.array_push($fish, new fish([""], ["autistic fish"], 3, true)); // Need to manually set the img each time this is called to set name
+$fish.array_push($fish, new fish(["\x0311♪\x03 \x0308♫\x03 ><> \x0309♪\x03 \x0304♫\x03"], ["aidoru fish"], 3, true));
 $fish.array_push($fish, new fish(["\x0313/\x03>\x0313/\x03<\x0313/\x03>\x0313/\x03 < \x0313chuu~♥\x03"], ["super ultra hyper mirakuru romanfish"], 1, false));
 $fish.array_push($fish, new fish(["\x0301,01><>\x03"], ["\x0301,01super ultra secret ninja fish\x03"], 1, true));
 $fish.array_push($fish, new fish(["https://www.youtube.com/watch?v=3Vn2xrSG24w"], [""], 1, false));
 $fish.array_push($fish, new fish(["|>"], ["shy fish"], 1, false));
 $fish.array_push($fish, new fish(["\x0300,01\x02> ><> ><> ><> ><>\x02 AHN~\x03"], ["me and fish watching the stars"], 1, false));
 $fish.array_push($fish, new fish(["><>"], ["depressed fish"], 1, true));
+$fish.array_push($fish, new fish(["><00,01 00,01CENSORED ><"], ["l-lewd fish"], 1, true));
 
 $fish_max = 0;
 foreach ($fish as $f) {
