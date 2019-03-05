@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-const DEBUG = false;
+const DEBUG = true;
 
 function t($str) {
 	echo "\n\n\n\n" . $str . "\n\n\n\n";
@@ -333,7 +333,7 @@ class comm {
 
 $server = "irc.rizon.net";
 $port = 6667;
-$nickname = "medukatheguca";
+$nickname = "medukatheguc";
 $ident = "MeduBot";
 $gecos = "12/F/Japan";
 $channel = "#meguca";
@@ -618,41 +618,53 @@ while ( is_resource($socket)) {
 		socket_write($socket, "PRIVMSG " . $sendto . " :nou\r\n");
 	}
 	else if ($d[3] == ":.shower") {
+
+		$lines = file(__DIR__ . "/../docs/shower", FILE_IGNORE_NEW_LINES);
+
+		$fp = fopen(__DIR__ . "/../docs/shower", "w+");
+
 		$name = get_name($d[0]);
-		$lines = file("../docs/shower");
-		$total = 0;
-		$usr_num = 1;
-		$found = false;
+		$total = 1;
+		$usr_total = 1;
 
-		foreach ($lines as &$line) {
-			$words = explode(' ', $line);
-			if ($words[0] == "total:") {
-				$words[1] = intval($words[1]) + 1;
-				$total = $words[1];
+		if (!$lines) {
+			fwrite($fp, "total 1\n");
+			fwrite($fp, "$name 1\n");
+		} else {
+			$found = false;
+
+			foreach ($lines as &$line) {
+				echo "\n\n\nLINE BEFORE: \"" . $line . "\"\n";
+				$words = explode(' ', $line);
+				if ($words[0] == "total") {
+					$words[1] = intval($words[1]) + 1;
+					$total = $words[1];
+				}
+				else if ($words[0] == $name) {
+					$words[1] = intval($words[1]) + 1;
+					$usr_total = $words[1];
+					$found = true;
+					$line = implode(" ", $words);
+					break;
+				}
+				$line = implode(" ", $words);
 			}
-			else if ($words[0] == $name) {
-				$words[1] = intval($words[1]) + 1;
-				$usr_num = $words[1];
-				$found = true;
-				$line = implode(' ', $words);
-				break;
+		
+			if (!$found) {
+				array_push($lines, $name . " 1");
 			}
-			$line = implode(' ', $words);
+
+			var_dump($lines);
+
+			fwrite($fp, implode("\n", $lines));
 		}
 
-		if (!$found) {
-			array_push($lines, $name . " 1");
-		}
-
-		$fp = fopen("../docs/shower", "w");
-		var_dump($lines);
-		fwrite($fp, implode("", $lines));
 		fclose($fp);
 
 		var_dump($lines);
 
 		socket_write($socket, "PRIVMSG " . $sendto . " :" . $name . " took a shower and is no longer stinky!\r\n");
-		socket_write($socket, "PRIVMSG " . $sendto . " :" . $name  . " has taken " . $usr_num . " " . ($usr_num == 1 ? "shower" : "showers") . ". Total number of showers taken: ". $total . "\r\n");
+		socket_write($socket, "PRIVMSG " . $sendto . " :" . $name  . " has taken " . $usr_total . " " . ($usr_total == 1 ? "shower" : "showers") . ". Total number of showers taken: ". $total . "\r\n");
 	}
 }
 
