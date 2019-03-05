@@ -1,0 +1,5 @@
+src/pw
+docs/
+vendor/
+composer.lock
+*.DS_Store
