@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-const DEBUG = true;
+const DEBUG = false;
 
 function t($str) {
 	echo "\n\n\n\n" . $str . "\n\n\n\n";
