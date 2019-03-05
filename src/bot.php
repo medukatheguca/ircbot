@@ -333,7 +333,7 @@ class comm {
 
 $server = "irc.rizon.net";
 $port = 6667;
-$nickname = "medukatheguc";
+$nickname = "medukatheguca";
 $ident = "MeduBot";
 $gecos = "12/F/Japan";
 $channel = "#meguca";
