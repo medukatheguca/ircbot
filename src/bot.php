@@ -376,8 +376,8 @@ $fish.array_push($fish, new fish(["><>📖"], ["smart fish"], 10, true));
 $fish.array_push($fish, new fish(["🐦"], ["flying fish"], 10, true));
 $fish.array_push($fish, new fish(["\x0311>9>\x03"], ["dumb fish"], 9, true));
 $fish.array_push($fish, new fish(["><\x0307|\x03        \x02PORTAL FISH\x02        \x0312|\x03>"], [""], 5, false));
-$fish.array_push($fish, new fish([" \/\\", " /\/"], ["yo mama", "fish"], 5, false));
-$fish.array_push($fish, new fish([" /\\", " \/", " /\\"], ["longfish", "is", "long"], 5, false));
+$fish.array_push($fish, new fish([" \/\\", " /\/"], ["yo mama", "fish"], 5, true));
+$fish.array_push($fish, new fish([" /\\", " \/", " /\\"], ["longfish", "is", "long"], 5, true));
 $fish.array_push($fish, new fish(["(((><>)))"], ["who's behind this fish"], 5, true));
 $fish.array_push($fish, new fish(["me with tags fish"], [""], 5, false));
 $fish.array_push($fish, new fish([""], ["autistic fish"], 3, true)); // Need to manually set the img each time this is called to set name
@@ -535,6 +535,7 @@ while ( is_resource($socket)) {
 		echo "Max value: " . $fish_max . "\n";
 		echo "Random number: " . $r . "\n";
 
+		$clique = ($f->cliqueable && rand(0, 50) == 25);
 		foreach ($fish as $f) {
 			if (($curr_val += $f->val) >= $r) {
 
@@ -553,7 +554,7 @@ while ( is_resource($socket)) {
 					}
 					$name = $f->name[$i];
 
-					if ($f->cliqueable && rand(0, 50) == 25) {
+					if ($clique) {
 						for ($j = 0; $j < 4; $j++) {
 							switch ($f->name[0]) {
 								case "weird fish":
@@ -577,6 +578,11 @@ while ( is_resource($socket)) {
 								break;
 							case "\x0301,01super ultra secret ninja fish\x03":
 								$name = "\x0301,01super ultra secret ninja fish clique\x03";
+								break;
+							case "yo mama":
+							case "is":
+							case "long":
+								# don't change these
 								break;
 							default:
 								$name = $name . " clique";
