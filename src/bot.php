@@ -380,6 +380,7 @@ $fish.array_push($fish, new fish([" \/\\", " /\/"], ["yo mama", "fish"], 5, true
 $fish.array_push($fish, new fish([" /\\", " \/", " /\\"], ["longfish", "is", "long"], 5, true));
 $fish.array_push($fish, new fish(["(((><>)))"], ["who's behind this fish"], 5, true));
 $fish.array_push($fish, new fish(["me with tags fish"], [""], 5, false));
+$fish.array_push($fish, new fish(["wark ><>"], [""], 5, false));
 $fish.array_push($fish, new fish([""], ["autistic fish"], 3, true)); // Need to manually set the img each time this is called to set name
 $fish.array_push($fish, new fish(["\x0311♪\x03 \x0308♫\x03 ><> \x0309♪\x03 \x0304♫\x03"], ["aidoru fish"], 3, true));
 $fish.array_push($fish, new fish(["\x0313/\x03>\x0313/\x03<\x0313/\x03>\x0313/\x03 < \x0313chuu~♥\x03"], ["super ultra hyper mirakuru romanfish"], 1, false));
