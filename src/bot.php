@@ -37,14 +37,15 @@ class comm {
 	private $isAdult;
 	private $startDate_lesser;
 	private $startDate_greater;
+	private $status;
 
 	private $empty_msg;
 
 	# Page used for random search instead of id because id can lead to 404s
 	const QUERY = '
-	query ($format: MediaFormat, $page: Int, $id: Int, $genre_in: [String], $genre_not_in: [String], $tag_in: [String], $tag_not_in: [String], $isAdult: Boolean, $startDate_greater: FuzzyDateInt, $startDate_lesser: FuzzyDateInt) {
+	query ($format: MediaFormat, $page: Int, $id: Int, $genre_in: [String], $genre_not_in: [String], $tag_in: [String], $tag_not_in: [String], $isAdult: Boolean, $startDate_greater: FuzzyDateInt, $startDate_lesser: FuzzyDateInt, $status: MediaStatus) {
 		Page(page: $page, perPage: 1) {
-			media (format: $format, id: $id, genre_in: $genre_in, genre_not_in: $genre_not_in, tag_in: $tag_in, tag_not_in: $tag_not_in, isAdult: $isAdult, startDate_greater: $startDate_greater, startDate_lesser: $startDate_lesser) {
+			media (format: $format, id: $id, genre_in: $genre_in, genre_not_in: $genre_not_in, tag_in: $tag_in, tag_not_in: $tag_not_in, isAdult: $isAdult, startDate_greater: $startDate_greater, startDate_lesser: $startDate_lesser, status: $status) {
 				id
 				idMal
 				format
@@ -78,12 +79,12 @@ class comm {
 
 	# Used to find the max number of pages when the filters are applied
 	const MAX_PAGES_QUERY = '
-	query ($format: MediaFormat, $genre_in: [String], $genre_not_in: [String], $tag_in: [String], $tag_not_in: [String], $isAdult: Boolean, $startDate_greater: FuzzyDateInt, $startDate_lesser: FuzzyDateInt) {
+	query ($format: MediaFormat, $genre_in: [String], $genre_not_in: [String], $tag_in: [String], $tag_not_in: [String], $isAdult: Boolean, $startDate_greater: FuzzyDateInt, $startDate_lesser: FuzzyDateInt, $status: MediaStatus) {
 		Page(perPage: 1) {
 			pageInfo {
 				total
 			}
-			media (format: $format, genre_in: $genre_in, genre_not_in: $genre_not_in, tag_in: $tag_in, tag_not_in: $tag_not_in, isAdult: $isAdult, startDate_greater: $startDate_greater, startDate_lesser: $startDate_lesser) {
+			media (format: $format, genre_in: $genre_in, genre_not_in: $genre_not_in, tag_in: $tag_in, tag_not_in: $tag_not_in, isAdult: $isAdult, startDate_greater: $startDate_greater, startDate_lesser: $startDate_lesser, status: $status) {
 				id
 			}
 		}
@@ -141,6 +142,7 @@ class comm {
 		$this->isAdult = false;
 		$this->startDate_lesser = 0;
 		$this->startDate_greater = 0;
+		$this->status = NULL;
 	}
 
 	# Begins a new iteration to find a recommendation using filters
@@ -164,7 +166,11 @@ class comm {
 		else if ($this->format == "SHORT") {
 			$this->format = "TV_SHORT";
 		}
-		
+
+		if (!(strtoupper($format) == "MANGA" || strtoupper($format) == "NOVEL" || strtoupper($format) == "ONE_SHOT")) {
+			$this->status = "FINISHED";
+		}
+
 		self::request_max();
 		echo "Max: " . $this->max_page . "\n";
 
@@ -327,6 +333,9 @@ class comm {
 		}
 		if ($this->startDate_lesser > 0) {
 			$array["startDate_lesser"] = intval($this->startDate_lesser . "0101");
+		}
+		if ($this->status === "FINISHED")  {
+			$array["status"] = $this->status;
 		}
 	}
 }
