@@ -546,6 +546,13 @@ while ( is_resource($socket)) {
 		echo "Random number: " . $r . "\n";
 
 		$clique = ($f->cliqueable && rand(0, 50) == 25);
+		$clique_size = rand(3, 7);
+		$clique_modifier = "";
+		if ($clique_size == 3) {
+			$clique_modifier = "reclined ";
+		} else if ($clique_size == 7) {
+			$clique_modifier = "inclined ";
+		}
 		foreach ($fish as $f) {
 			if (($curr_val += $f->val) >= $r) {
 
@@ -565,7 +572,7 @@ while ( is_resource($socket)) {
 					$name = $f->name[$i];
 
 					if ($clique) {
-						for ($j = 0; $j < 4; $j++) {
+						for ($j = 0; $j < $clique_size - 1; $j++) {
 							switch ($f->name[0]) {
 								case "weird fish":
 									$img = $img . " " . weird_fish();
@@ -581,13 +588,13 @@ while ( is_resource($socket)) {
 						}
 						switch ($name) {
 							case "alive fish":
-								$name = "fish clique";
+								$name = $clique_modifier . "fish clique";
 								break;
 							case "\x0303implying fish\x03":
-								$name = "\x0303implying fish clique\x03";
+								$name = "\x0303implying " . $clique_modifier . "fish clique\x03";
 								break;
 							case "\x0301,01super ultra secret ninja fish\x03":
-								$name = "\x0301,01super ultra secret ninja fish clique\x03";
+								$name = "\x0301,01super ultra secret ninja " . $clique_modifier . "fish clique\x03";
 								break;
 							case "yo mama":
 							case "is":
@@ -595,7 +602,7 @@ while ( is_resource($socket)) {
 								# don't change these
 								break;
 							default:
-								$name = $name . " clique";
+								$name = $clique_modifier . $name . " clique";
 								break;
 						}
 					}
