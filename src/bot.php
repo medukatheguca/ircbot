@@ -572,7 +572,7 @@ while ( is_resource($socket)) {
 					$name = $f->name[$i];
 
 					if ($clique) {
-						for ($j = 0; $j < $clique_size; $j++) {
+						for ($j = 0; $j < $clique_size - 1; $j++) {
 							switch ($f->name[0]) {
 								case "weird fish":
 									$img = $img . " " . weird_fish();
