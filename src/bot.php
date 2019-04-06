@@ -630,6 +630,10 @@ while ( is_resource($socket)) {
 		fwrite($fp, $line);
 		fclose($fp);
 	}
+	else if (preg_match("/:s\/.+\/.*\/$/", $data)) {
+		$nick = get_name($d[0]);
+		socket_write($socket, "PRIVMSG " . $sendto . " :<" . $nick . "> I'm a dumb bwaka who doesn't proofread before I hit enter. Please laugh at me.\r\n");
+	}
 	else if ($d[3] == ":.test") {
 		socket_write($socket, "PRIVMSG " . $sendto . " :There's nothing to test, dummy\r\n");
 	}
@@ -647,6 +651,18 @@ while ( is_resource($socket)) {
 	}
 	else if (strtolower($d[3]) == ":dumb") {
 		socket_write($socket, "PRIVMSG " . $sendto . " :nou\r\n");
+	}
+	else if (strtolower($d[3]) == ":partyhard") {
+		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0304,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
+		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0312,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
+		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0303,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
+	}
+	else if (strtolower($d[3]) == ":partymedium") {
+		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0304,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
+		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0312,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
+	}
+	else if (strtolower($d[3]) == ":partysoft" || strtolower($d[3]) == ":partylite") {
+		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0304,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
 	}
 	else if ($d[3] == ":.shower") {
 
