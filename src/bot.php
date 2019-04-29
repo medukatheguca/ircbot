@@ -414,6 +414,7 @@ $links.array_push($links, "https://www.youtube.com/watch?v=kq64zpcdInM"); // Bye
 $links.array_push($links, "https://www.youtube.com/watch?v=tsfnuyyjaB0"); // VIPER - You'll Cowards Don't Even Smoke Crack
 $links.array_push($links, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Rickroll
 $links.array_push($links, "https://www.youtube.com/watch?v=h2dJ-JUzhVs"); // NCLHC
+$links.array_push($links, "https://www.youtube.com/watch?v=_k0Jc135ErI"); // Futabu!
 
 $fish_max = 0;
 foreach ($fish as $f) {
