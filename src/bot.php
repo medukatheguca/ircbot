@@ -400,6 +400,21 @@ $fish.array_push($fish, new fish(["\x0300,01\x02> ><> ><> ><> ><>\x02 AHN~\x03"]
 $fish.array_push($fish, new fish(["><>"], ["depressed fish"], 1, true));
 $fish.array_push($fish, new fish(["><00,01 00,01CENSORED ><"], ["l-lewd fish"], 1, true));
 
+$links = [];
+$links.array_push($links, "https://www.youtube.com/watch?v=Tc8iu0XFUQc"); // WE ARE JAPANESE GOBLIN
+$links.array_push($links, "https://www.youtube.com/watch?v=XkHVMLtbePo"); // Shii's Song
+$links.array_push($links, "https://www.youtube.com/watch?v=aWmRrfCrMPI"); // Longcat's Song
+$links.array_push($links, "https://www.youtube.com/watch?v=Ar4WzQ7KHak"); // 4chan city
+$links.array_push($links, "https://www.youtube.com/watch?v=zvq9r6R6QAY"); // Caramelldansen
+$links.array_push($links, "https://www.youtube.com/watch?v=1wnE4vF9CQ4"); // Leek Spin
+$links.array_push($links, "https://www.youtube.com/watch?v=4ziTr315S7c"); // FUKKIRETA
+$links.array_push($links, "https://www.youtube.com/watch?v=3U52sP25ynE"); // ELO - Prologue/Twilight
+$links.array_push($links, "https://www.youtube.com/watch?v=iQkbwhHfohY"); // NEDM
+$links.array_push($links, "https://www.youtube.com/watch?v=kq64zpcdInM"); // Bye, Bye, to the 4chan website
+$links.array_push($links, "https://www.youtube.com/watch?v=tsfnuyyjaB0"); // VIPER - You'll Cowards Don't Even Smoke Crack
+$links.array_push($links, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Rickroll
+$links.array_push($links, "https://www.youtube.com/watch?v=h2dJ-JUzhVs"); // NCLHC
+
 $fish_max = 0;
 foreach ($fish as $f) {
 	$fish_max += $f->val;
@@ -635,7 +650,9 @@ while ( is_resource($socket)) {
 		socket_write($socket, "PRIVMSG " . $sendto . " :<" . $nick . "> I'm a dumb bwaka who doesn't proofread before I hit enter. Please laugh at me.\r\n");
 	}
 	else if ($d[3] == ":.test") {
+		$r = rand(0, sizeof($links) - 1);
 		socket_write($socket, "PRIVMSG " . $sendto . " :There's nothing to test, dummy\r\n");
+		socket_write($socket, "PRIVMSG " . $sendto . " :Take this instead: " . $links[$r]. "\r\n");
 	}
 	else if ($d[3] == ":.joke") {
 		socket_write($socket, "PRIVMSG " . $sendto . " :ba dum tss\r\n");
