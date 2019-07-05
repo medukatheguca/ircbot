@@ -484,9 +484,9 @@ while ( is_resource($socket)) {
 			$minutes = intval(($time - $hours * 60 * 60) / 60);
 			$seconds = intval($time - $hours * 60 * 60 - $minutes * 60);
 			$message = "It has been ";
-			if ($hours !== "00") { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
-			if ($minutes !== "00") { $message = $message . $minutes . (intval($minuts) > 1 ? "minutes " : "minute "); }
-			if ($seconds !== "00") { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
+			if ($hours !== 0) { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
+			if ($minutes !== 0) { $message = $message . $minutes . (intval($minuts) > 1 ? "minutes " : "minute "); }
+			if ($seconds !== 0) { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
 			$message = $message . "since Chrono talked about his hackintosh!\r\n";
 			socket_write($socket, "PRIVMSG " . $sendto . " :" . $message);
 		}
