@@ -415,6 +415,33 @@ $links.array_push($links, "https://www.youtube.com/watch?v=tsfnuyyjaB0"); // VIP
 $links.array_push($links, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Rickroll
 $links.array_push($links, "https://www.youtube.com/watch?v=h2dJ-JUzhVs"); // NCLHC
 $links.array_push($links, "https://www.youtube.com/watch?v=_k0Jc135ErI"); // Futabu!
+$links.array_push($links, "https://www.youtube.com/watch?v=ifs4zmWD3ms"); // GEDDAN
+$links.array_push($links, "https://www.youtube.com/watch?v=KmtzQCSh6xk"); // Numa Numa
+$links.array_push($links, "https://www.youtube.com/watch?v=UjCdB5p2v0Y"); // Techno Viking
+$links.array_push($links, "https://www.youtube.com/watch?v=9lNZ_Rnr7Jc"); // Bad Apple
+$links.array_push($links, "https://www.youtube.com/watch?v=eyKbtBLkWK0"); // Otakon 2005 intro
+$links.array_push($links, "https://4chan.org/flash?file=4chan_otakon2006-low.swf&title=The+4chan+Otakon+2006+Panel+Intro&w=640&h=480"); // Otakon 2006 intro
+$links.array_push($links, "https://www.youtube.com/watch?v=5nb4ozFlM-g"); // Otakon 2007 intro
+$links.array_push($links, "https://www.youtube.com/watch?v=nKDW0HMniZo"); // 4chan 10th anniversary intro
+$links.array_push($links, "https://www.youtube.com/watch?v=2QUyrm4tgj4"); // W.T. Snacks and "Coda" at Otakon '07
+$links.array_push($links, "https://www.youtube.com/watch?v=NvIj-Rsz9Xg"); // 4chan Anime Intro (ZONE)
+$links.array_push($links, "https://www.youtube.com/watch?v=bgC1dMjI87E"); // Country roads
+$links.array_push($links, "https://www.youtube.com/watch?v=vG5pxYv4Wp4"); // The Future of the Internet?
+$links.array_push($links, "https://files.catbox.moe/jewt2y.flac"); // Yourewaifuashit
+$links.array_push($links, "http://steamsteamlol.ytmnd.com/"); // lol, internet
+$links.array_push($links, "https://www.youtube.com/watch?v=EwTZ2xpQwpA"); // Chocolate Rain
+$links.array_push($links, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Rickroll
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+// $links.array_push($links, ""); // 
+
+$chrono_time = 0;
 
 $fish_max = 0;
 foreach ($fish as $f) {
@@ -447,6 +474,23 @@ while ( is_resource($socket)) {
 	else if ($data == ":NickServ!service@rizon.net NOTICE medukatheguca :please choose a different nick.") {
 		$pw = file("pw")[0];
 		socket_write($socket, "PRIVMSG NickServ :IDENTIFY $pw\n\n");
+	} 
+	else if (strpos(strtolower($d[0]), "chrono") !== false && ((strpos(strtolower($data), "hackintosh")) !== false || (strpos(strtolower($data), "mac")) !== false || (strpos(strtolower($data), "x220")) !== false || (strpos(strtolower($data), "16gb of ram")) !== false || (strpos(strtolower($data), "500gb ssd")) !== false || (strpos(strtolower($data), "mojave")) !== false)) {
+		if ($chrono_time === 0) {
+			socket_write($socket, "PRIVMSG " . $sendto . " :This has been the first time Chrono talked about his hackintosh in this session!\r\n");
+		} else {
+			$time = time() - $chrono_time;
+			$hours = str_pad(intval($time / 60 / 60), 2, "0", STR_PAD_LEFT);
+			$minutes = str_pad(intval(($time - $hours * 60 * 60) / 60), 2, "0", STR_PAD_LEFT);
+			$seconds = str_pad(intval($time - $hours * 60 * 60 - $minutes * 60), 2, "0", STR_PAD_LEFT);
+			$message = "It has been ";
+			if ($hours === "00") { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
+			if ($minutes === "00") { $message = $message . $minutes . (intval($minuts) > 1 ? "minutes " : "minute "); }
+			if ($seconds === "00") { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
+			$message = $message . "since Chrono talked about his hackintosh!\r\n";
+			socket_write($socket, "PRIVMSG " . $sendto . " :" . $message);
+		}
+		$chrono_time = time();
 	} 
 	else if ($d[3] == ':.ping') {
 		socket_write($socket, 'PRIVMSG ' . $sendto . " :pong\r\n");
@@ -669,6 +713,14 @@ while ( is_resource($socket)) {
 	}
 	else if (strtolower($d[3]) == ":dumb") {
 		socket_write($socket, "PRIVMSG " . $sendto . " :nou\r\n");
+	}
+	else if (strtolower($d[3]) == ":.cry") {
+		$cry = ";";
+		do {
+			$cry = $cry . "_";
+		} while (rand(0, 10) != 5);
+		$cry = $cry . ";";
+		socket_write($socket, "PRIVMSG " . $sendto . " :" . $cry . "\r\n");
 	}
 	else if (strtolower($d[3]) == ":partyhard") {
 		socket_write($socket, "PRIVMSG " . $sendto . " :\x02\x0304,01   \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/ \o/   \r\n");
