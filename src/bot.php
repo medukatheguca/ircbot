@@ -480,13 +480,13 @@ while ( is_resource($socket)) {
 			socket_write($socket, "PRIVMSG " . $sendto . " :This has been the first time Chrono talked about his hackintosh in this session!\r\n");
 		} else {
 			$time = time() - $chrono_time;
-			$hours = str_pad(intval($time / 60 / 60), 2, "0", STR_PAD_LEFT);
-			$minutes = str_pad(intval(($time - $hours * 60 * 60) / 60), 2, "0", STR_PAD_LEFT);
-			$seconds = str_pad(intval($time - $hours * 60 * 60 - $minutes * 60), 2, "0", STR_PAD_LEFT);
+			$hours = intval($time / 60 / 60);
+			$minutes = intval(($time - $hours * 60 * 60) / 60);
+			$seconds = intval($time - $hours * 60 * 60 - $minutes * 60);
 			$message = "It has been ";
-			if ($hours === "00") { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
-			if ($minutes === "00") { $message = $message . $minutes . (intval($minuts) > 1 ? "minutes " : "minute "); }
-			if ($seconds === "00") { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
+			if ($hours !== "00") { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
+			if ($minutes !== "00") { $message = $message . $minutes . (intval($minuts) > 1 ? "minutes " : "minute "); }
+			if ($seconds !== "00") { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
 			$message = $message . "since Chrono talked about his hackintosh!\r\n";
 			socket_write($socket, "PRIVMSG " . $sendto . " :" . $message);
 		}
