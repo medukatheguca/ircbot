@@ -484,9 +484,9 @@ while ( is_resource($socket)) {
 			$minutes = intval(($time - $hours * 60 * 60) / 60);
 			$seconds = intval($time - $hours * 60 * 60 - $minutes * 60);
 			$message = "It has been ";
-			if ($hours !== 0) { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
-			if ($minutes !== 0) { $message = $message . $minutes . (intval($minutes) > 1 ? "minutes " : "minute "); }
-			if ($seconds !== 0) { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
+			if ($hours > 0) { $message = $message . $hours . (intval($hours) > 1 ? "hours " : "hour "); }
+			if ($minutes > 0) { $message = $message . $minutes . (intval($minutes) > 1 ? "minutes " : "minute "); }
+			if ($seconds > 0) { $message = $message . $seconds . (intval($seconds) > 1 ? "seconds " : "second "); }
 			$message = $message . "since Chrono talked about his hackintosh!\r\n";
 			socket_write($socket, "PRIVMSG " . $sendto . " :" . $message);
 		}
@@ -689,6 +689,20 @@ while ( is_resource($socket)) {
 		$fp = fopen("../docs/suggestfish", "a+");
 		fwrite($fp, $line);
 		fclose($fp);
+	}
+	else if (preg_match("/:medukatheguca, .+ or .+\?$/", $data, $matches)) {
+		$s = $matches[0];
+		$newStr = str_replace(",", " or ", $s);
+		$arr = explode(" or ", $newStr);
+		// Remove the first value from the array -- ":medukatheguca"
+		array_shift($arr);
+		// Remove empty values caused by end-user retardation (probably kyubae)
+		$arr = array_filter($arr, function($v) { return $v != ""; });
+		$arr = array_values($arr); // This is why I hate PHP
+		$rand = rand(0, count($arr) - 1);
+		$chosen = trim($arr[$rand], " \t\n\r\0\x0B\?");
+		$nick = get_name($d[0]);
+		socket_write($socket, "PRIVMSG " . $sendto . " :" . $nick . " : " . $chosen . "\r\n");
 	}
 	else if (preg_match("/:s\/.+\/.*\/$/", $data)) {
 		$nick = get_name($d[0]);
