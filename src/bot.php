@@ -694,13 +694,15 @@ while ( is_resource($socket)) {
 		$s = $matches[0];
 		$newStr = str_replace(",", " or ", $s);
 		$arr = explode(" or ", $newStr);
+		// Remove the ? from the last value
+		$arr[count($arr) - 1] = substr($arr[count($arr) - 1], 0, -1);
 		// Remove the first value from the array -- ":medukatheguca"
 		array_shift($arr);
 		// Remove empty values caused by end-user retardation (probably kyubae)
 		$arr = array_filter($arr, function($v) { return $v != ""; });
 		$arr = array_values($arr); // This is why I hate PHP
 		$rand = rand(0, count($arr) - 1);
-		$chosen = trim($arr[$rand], " \t\n\r\0\x0B\?");
+		$chosen = trim($arr[$rand], " \t\n\r\0\x0B");
 		$nick = get_name($d[0]);
 		if ($chosen !== "") {
 			socket_write($socket, "PRIVMSG " . $sendto . " :" . $nick . " : " . $chosen . "\r\n");
