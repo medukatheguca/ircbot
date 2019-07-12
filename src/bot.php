@@ -702,7 +702,11 @@ while ( is_resource($socket)) {
 		$rand = rand(0, count($arr) - 1);
 		$chosen = trim($arr[$rand], " \t\n\r\0\x0B\?");
 		$nick = get_name($d[0]);
-		socket_write($socket, "PRIVMSG " . $sendto . " :" . $nick . " : " . $chosen . "\r\n");
+		if ($chosen !== "") {
+			socket_write($socket, "PRIVMSG " . $sendto . " :" . $nick . " : " . $chosen . "\r\n");
+		} else {
+			socket_write($socket, "PRIVMSG " . $sendto . " :" . $nick . " : https://www.youtube.com/watch?v=xqQYho0ZULY\r\n");
+		}
 	}
 	else if (preg_match("/:s\/.+\/.*\/$/", $data)) {
 		$nick = get_name($d[0]);
